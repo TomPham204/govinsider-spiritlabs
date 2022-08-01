@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Category {
+  id   Int    @id(map: "PK_9c4e4a89e3674fc9f382d733f03") @default(autoincrement())
+  name String @db.VarChar
+  slug String @db.VarChar
+  metas PostMeta[]
+}
+
+model Media {
+  id       Int    @id(map: "PK_f4e0fcac36e050de337b670d8bd") @default(autoincrement())
+  name     String @db.VarChar
+  slug     String @db.VarChar
+  postId   Int
+  url      String @db.VarChar
+  mimeType String @db.VarChar
+}
+
+model Post {
+  id        Int      @id(map: "PK_be5fda3aac270b134ff9c21cdee") @default(autoincrement())
+  name      String   @db.VarChar /// @z.string().min(0).max(1000)
+  slug      String   @unique(map: "IDX_cd1bddce36edc3e766798eab37") @db.VarChar
+  content   String   @db.VarChar
+  status    String   @default("draft") @db.VarChar
+  type      String   @default("post") @db.VarChar
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @default(now()) @db.Timestamp(6)
+  userId    Int     @default(0)
+  author User @relation(fields: [userId], references: [id])
+  metas PostMeta[] 
+
+  @@index([slug])
+}
+
+model PostMeta {
+  id         Int @id(map: "PK_44de5a6fce24e7e35d488605f84") @default(autoincrement())
+
+  post Post? @relation(fields: [postId], references: [id])
+  postId     Int?
+
+  category Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+}
+
+
+model User {
+  id            Int      @id(map: "PK_cace4a159ff9f2512dd42373760") @default(autoincrement())
+  email         String   @db.VarChar
+  password      String?  @db.VarChar
+  roles         String[] @default(["user"])
+  refreshToken  String?  @db.VarChar
+  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime @default(now()) @db.Timestamp(6)
+  activationKey String?  @db.VarChar
+  firstName     String   @db.VarChar
+  lastName      String   @default("") @db.VarChar
+
+  posts Post[] 
+}
+

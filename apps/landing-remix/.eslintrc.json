@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
+  "ignorePatterns": ["!**/*"],
+  "globals": {
+    "React": "writable",
+    "localStorage": true,
+    "fetch": true,
+    "Promise": true,
+    "window": true,
+    "document": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}

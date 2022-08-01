@@ -1,0 +1,13 @@
+{
+  "name": "landing-remix",
+  "scripts": {
+    "build": "../../node_modules/.bin/remix build",
+    "dev": "../../node_modules/.bin/remix dev",
+    "serve": "../../node_modules/.bin/remix dev",
+    "start": "../../node_modules/.bin/remix-serve build",
+    "lint": "../../node_modules/.bin/eslint  app/**/*.tsx  "
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

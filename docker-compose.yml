@@ -1,0 +1,50 @@
+version: '3'
+services:
+  db:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - '5431:5432'
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql/data
+    env_file:
+      - docker.env
+    networks:
+      - postgres
+
+  pgadmin:
+    links:
+      - db:postgres
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    ports:
+      - '8080:80'
+    volumes:
+      - ./data/pgadmin:/root/.pgadmin
+    env_file:
+      - docker.env
+    networks:
+      - postgres
+
+  redis:
+    container_name: redisearch
+    image: redislabs/redisearch:latest
+    ports:
+      - '6379:6379'
+
+  mysql:
+    platform: linux/amd64
+    container_name: gov_dump
+    image: mysql:8
+    ports:
+      - '3310:3306'
+    # environment:
+    #   - MYSQL_ROOT_PASSWORD=pw
+    #   - MYSQL_DATABASE=wp_govinsider
+    volumes:
+      - ./docker/datadir:/var/lib/mysql
+      - ./docker/provision:/docker-entrypoint-initdb.d
+
+networks:
+  postgres:
+    driver: bridge

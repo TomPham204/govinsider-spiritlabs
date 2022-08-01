@@ -1,0 +1,14 @@
+{
+  "name": "migrate",
+  "scripts": {
+    "migrate:post": "ts-node src/main.ts",
+    "migrate:user": "ts-node src/user.ts",
+    "migrate:media": "ts-node src/media.ts",
+    "migrate:category": "ts-node src/category.ts",
+    "migrate:postmeta": "ts-node src/post-meta.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ts-node": "^10.7.0"
+  }
+}

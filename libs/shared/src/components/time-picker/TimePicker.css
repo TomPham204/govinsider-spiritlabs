@@ -1,0 +1,15 @@
+.time-picker {
+  border: '2px solid blue';
+  width: '$x15';
+  height: '$x15';
+}
+.time-popup {
+  border: '2px solid red';
+  display: 'flex';
+  width: '100px';
+  height: '100px';
+}
+ul,
+li {
+  list-style: 'none';
+}
